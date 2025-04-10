@@ -3,6 +3,8 @@
 namespace Udhuong\Uploader;
 
 use Illuminate\Support\ServiceProvider;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Udhuong\Uploader\Domain\Contracts\MediaRepository;
 use Udhuong\Uploader\Infrastructure\File\UploadService;
 use Udhuong\Uploader\Infrastructure\Repositories\MediaRepositoryImpl;
@@ -23,9 +25,12 @@ class UploaderServiceProvider extends ServiceProvider
             $uploadService->disk(config('uploader.disk'));
             return $uploadService;
         });
+        $this->app->singleton('intervention_image', function () {
+            return new ImageManager(new Driver());
+        });
     }
 
-    public function boot()
+    public function boot(): void
     {
         $this->registerRepository();
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');

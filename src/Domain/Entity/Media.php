@@ -12,7 +12,9 @@ class Media
     public MediaType $type;
     public string $originalName;
     public string $name;
+    public string $nameNoExtension;
     public string $path;
+    public string $absolutePath;
     public string $mimeType;
     public string $extension;
     public int $size = 0;

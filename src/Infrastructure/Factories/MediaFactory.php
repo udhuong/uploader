@@ -23,7 +23,9 @@ class MediaFactory
         $media->type = MediaHelper::detectFileType($extension);
         $media->originalName = '';
         $media->name = pathinfo($path, PATHINFO_FILENAME) . '.' . $extension;
+        $media->nameNoExtension = pathinfo($path, PATHINFO_FILENAME);
         $media->path = $path;
+        $media->absolutePath = Storage::disk($disk)->path($path);
         $media->mimeType = $storage->mimeType($path);
         $media->extension = $extension;
         $media->size = filesize($storage->path($path));

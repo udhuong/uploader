@@ -8,6 +8,7 @@ use Udhuong\LaravelCommon\Presentation\Http\Controllers\Controller;
 use Udhuong\LaravelCommon\Presentation\Http\Response\Responder;
 use Udhuong\Uploader\Domain\Actions\SaveMediaAction;
 use Udhuong\Uploader\Infrastructure\Factories\MediaFactory;
+use Udhuong\Uploader\Infrastructure\File\InterventionImageService;
 use Udhuong\Uploader\Presentation\Facades\Upload;
 use Udhuong\Uploader\Presentation\Http\Requests\UploadRequest;
 use Udhuong\Uploader\Presentation\Http\Response\UploadResponse;
@@ -16,6 +17,7 @@ class UploadController extends Controller
 {
     public function __construct(
         private readonly SaveMediaAction $saveMediaAction,
+        private readonly InterventionImageService $interventionImageService
     ) {
     }
 
@@ -55,6 +57,15 @@ class UploadController extends Controller
             $uploadedFiles[] = $media;
         }
 
+        foreach ($uploadedFiles as $media) {
+            if (str_starts_with($media->mimeType, 'image/')) {
+                $this->interventionImageService->make($media)->thumbnail(300, 300);
+                $this->interventionImageService->make($media)->resizeWidth(800);
+                $this->interventionImageService->make($media)->watermark(public_path('watermark.png'));
+            }
+        }
+
         return Responder::success(UploadResponse::format($uploadedFiles), 'Upload thành công');
     }
+
 }
