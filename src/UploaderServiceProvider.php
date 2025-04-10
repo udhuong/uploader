@@ -17,28 +17,29 @@ class UploaderServiceProvider extends ServiceProvider
         $this->commands([
             UploadFileCommand::class,
         ]);
-        $this->mergeConfigFrom(__DIR__ . '/../config/uploader.php', 'uploader');
+        $this->mergeConfigFrom(__DIR__.'/../config/uploader.php', 'uploader');
 
         $this->app->singleton('upload', function () {
-            $uploadService = new UploadService();
+            $uploadService = new UploadService;
             $uploadService->directory(config('uploader.directory'));
             $uploadService->disk(config('uploader.disk'));
+
             return $uploadService;
         });
         $this->app->singleton('intervention_image', function () {
-            return new ImageManager(new Driver());
+            return new ImageManager(new Driver);
         });
     }
 
     public function boot(): void
     {
         $this->registerRepository();
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->publishes([
-            __DIR__ . '/../config/uploader.php' => config_path('uploader.php'),
-            __DIR__ . '/../../../storage/app/public' => storage_path('app/public'),
+            __DIR__.'/../config/uploader.php' => config_path('uploader.php'),
+            __DIR__.'/../../../storage/app/public' => storage_path('app/public'),
         ], 'uploader');
     }
 

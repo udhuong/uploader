@@ -8,10 +8,6 @@ use Udhuong\Uploader\Domain\Entity\Media;
 
 class MediaRepositoryImpl implements MediaRepository
 {
-    /**
-     * @param Media $media
-     * @return int
-     */
     public function save(Media $media): int
     {
         $insertData = [
@@ -28,12 +24,12 @@ class MediaRepositoryImpl implements MediaRepository
             'duration' => $media->duration,
             'disk' => $media->disk,
         ];
+
         return \DB::table('medias')->insertGetId($insertData);
     }
 
     /**
-     * @param ImageVariant[] $imageVariants
-     * @return void
+     * @param  ImageVariant[]  $imageVariants
      */
     public function saveImageVariantMany(array $imageVariants): void
     {

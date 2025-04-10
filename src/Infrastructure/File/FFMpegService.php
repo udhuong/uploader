@@ -9,9 +9,6 @@ class FFMpegService
 {
     /**
      * Lấy thời gian video/audio
-     *
-     * @param string $path
-     * @return int
      */
     public static function getDuration(string $path): int
     {
@@ -21,8 +18,6 @@ class FFMpegService
     /**
      * Lấy kích thước video
      *
-     * @param string $disk
-     * @param string $path
      * @return int[]
      */
     public static function getSize(string $disk, string $path): array
@@ -37,6 +32,7 @@ class FFMpegService
             $width = $videoStream->get('width');
             $height = $videoStream->get('height');
         }
+
         return [$width, $height];
     }
 }

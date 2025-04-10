@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Udhuong\Uploader\Presentation\Helpers;
 
 use Udhuong\Uploader\Domain\ValueObjects\MediaType;
@@ -9,9 +8,6 @@ class MediaHelper
 {
     /**
      * Lấy media type từ extension
-     *
-     * @param string $extension
-     * @return MediaType
      */
     public static function detectFileType(string $extension): MediaType
     {
@@ -35,9 +31,6 @@ class MediaHelper
 
     /**
      * Format duration in seconds to HH:MM:SS
-     *
-     * @param int $duration
-     * @return string
      */
     public static function formatDuration(int $duration): string
     {

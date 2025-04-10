@@ -18,14 +18,11 @@ class UploadController extends Controller
     public function __construct(
         private readonly SaveMediaAction $saveMediaAction,
         private readonly InterventionImageService $interventionImageService
-    ) {
-    }
+    ) {}
 
     /**
      * Upload file cơ bản
      *
-     * @param UploadRequest $request
-     * @return JsonResponse
      * @throws ConnectionException
      */
     public function upload(UploadRequest $request): JsonResponse
@@ -67,5 +64,4 @@ class UploadController extends Controller
 
         return Responder::success(UploadResponse::format($uploadedFiles), 'Upload thành công');
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Udhuong\Uploader\Infrastructure\Factories;
 
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Udhuong\Uploader\Domain\Entity\Media;
 use Udhuong\Uploader\Infrastructure\File\FFMpegService;
@@ -10,19 +9,14 @@ use Udhuong\Uploader\Presentation\Helpers\MediaHelper;
 
 class MediaFactory
 {
-    /**
-     * @param string $path
-     * @param string|null $disk
-     * @return Media
-     */
-    public static function fromUploaded(string $path, string $disk = null): Media
+    public static function fromUploaded(string $path, ?string $disk = null): Media
     {
         $storage = Storage::disk($disk);
-        $media = new Media();
+        $media = new Media;
         $extension = pathinfo($path, PATHINFO_EXTENSION);
         $media->type = MediaHelper::detectFileType($extension);
         $media->originalName = '';
-        $media->name = pathinfo($path, PATHINFO_FILENAME) . '.' . $extension;
+        $media->name = pathinfo($path, PATHINFO_FILENAME).'.'.$extension;
         $media->nameNoExtension = pathinfo($path, PATHINFO_FILENAME);
         $media->path = $path;
         $media->absolutePath = Storage::disk($disk)->path($path);

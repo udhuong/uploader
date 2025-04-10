@@ -5,7 +5,7 @@ namespace Udhuong\Uploader\Presentation\Consoles;
 use Illuminate\Console\Command;
 use Udhuong\Uploader\Presentation\Facades\Upload;
 
-class UploadFileCommand  extends Command
+class UploadFileCommand extends Command
 {
     /**
      * The name and signature of the console command.

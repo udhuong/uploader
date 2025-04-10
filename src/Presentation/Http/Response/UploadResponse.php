@@ -7,8 +7,7 @@ use Udhuong\Uploader\Domain\Entity\Media;
 class UploadResponse
 {
     /**
-     * @param Media[] $medias
-     * @return array
+     * @param  Media[]  $medias
      */
     public static function format(array $medias): array
     {
