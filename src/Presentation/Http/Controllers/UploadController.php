@@ -35,8 +35,10 @@ class UploadController extends Controller
         $disk = config('uploader.disk');
         $userId = auth()->id() ?? 1;
 
+        $upload = Upload::folderDate()->disk($disk);
+
         foreach ($files as $file) {
-            $path = Upload::disk($disk)->uploadFile($file);
+            $path = $upload->uploadFile($file);
             $media = MediaFactory::fromUploaded($path, $disk);
             $media->originalName = $file->getClientOriginalName();
             $media->userId = $userId;
@@ -45,7 +47,7 @@ class UploadController extends Controller
         }
 
         foreach ($urls as $url) {
-            $path = Upload::disk($disk)->uploadSinkFromUrl($url);
+            $path = $upload->uploadSinkFromUrl($url);
             $media = MediaFactory::fromUploaded($path, $disk);
             $media->originalName = pathinfo($url, PATHINFO_BASENAME);
             $media->userId = $userId;

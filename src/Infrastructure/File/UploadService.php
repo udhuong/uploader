@@ -25,6 +25,12 @@ class UploadService
         return $this;
     }
 
+    public function folderDate(): self
+    {
+        $this->directory .= '/' . date('Y/m/d');
+        return $this;
+    }
+
     /**
      * Upload xong trả về path tương đối dạng: uploads/1744276573_file_example_MP4_480_1_5MG.mp4
      * @param UploadedFile $file
@@ -89,10 +95,10 @@ class UploadService
         if ($file instanceof UploadedFile) {
             $fileName = $file->getClientOriginalName();
         }
-        if(is_string($file)) {
+        if (is_string($file)) {
             $clientOriginalName = explode('/', $file);
             $fileName = array_pop($clientOriginalName);
         }
-        return time(). '_' . Str::random(8) . '_' . $fileName;
+        return time() . '_' . Str::random(8) . '_' . $fileName;
     }
 }
